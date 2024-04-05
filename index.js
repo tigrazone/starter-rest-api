@@ -114,7 +114,7 @@ nodemailer.createTransport(smtpTransport({
   },
 }))
   : 
-  gmailTransporter
+  gmailTransporter2
   ;
   
   return transporter
@@ -188,9 +188,9 @@ app.get('/do_check', async (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   let html = '';
   for (const key in result) {
-    console.log(93, key);
+    console.log(191, key);
     const item = result[key];
-    console.log(95, item);
+    console.log(193, item);
     const last_status = +item.last_status;
     let statusCode = 500;
 	  try {
