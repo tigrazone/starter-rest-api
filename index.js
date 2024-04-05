@@ -118,7 +118,6 @@ gmailTransporter3.verify(function (error, success) {
 });
   
 async function sendMail(text) {
-	/*
   var mailOptions = {
     from: 'tigrazone@ukr.net',
     to: 'tigrazone@gmail.com',
@@ -127,6 +126,19 @@ async function sendMail(text) {
     text
   };
   
+  // 7a7df2d987e67ed060e84ec1143f51f9-4c205c86-e0f39e7c
+  
+const mg = require('nodemailer-mailgun-transport');
+
+// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+const auth = {
+  auth: {
+    api_key: '7a7df2d987e67ed060e84ec1143f51f9-4c205c86-e0f39e7c',
+    domain: 'sandbox179e66ac40344a199074801f8d7b6ee9.mailgun.org'
+  }
+}
+
+const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
   const transporter = NODE_ENV === 'dev' ? 
 nodemailer.createTransport(smtpTransport({
@@ -138,23 +150,15 @@ nodemailer.createTransport(smtpTransport({
   },
 }))
   : 
-  nodemailer.createTransport({
-                port: 465,
-                host: "smtp.ukr.net",
-                auth: {
-                    user: username,
-                    pass: password,
-                },
-                secure: true,
-            })
+  nodemailerMailgun
   ;
   
   return transporter
     .sendMail(mailOptions)
     .then(info => console.log('Message sent:', info))
     .catch(err => console.log(`Problem sending email: ${err}`));
-	*/
 	
+	/*
 	const MailtrapClient = require("mailtrap").MailtrapClient;
 	
 	const TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InRva2VuIjoiNDAxYTE1Zjc4NDI0YjFhNzk4NWMzYzRjZThhYzliM2QifX0.-DDt7Jv2B85iwSu7wxU_hDBqcgKYI7IXzJ0Q_DudbKtgf2aOTBYAw9KBsfUSP8e9zhsLZaWizMusUyyAxNL7lg";
@@ -174,6 +178,7 @@ return client
   })
   .then(console.log)
   .catch(console.error);
+  */
 }
 
 async function getAllKV() {
