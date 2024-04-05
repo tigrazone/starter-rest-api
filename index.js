@@ -52,9 +52,10 @@ app.get('/info/:key', async (req, res) => {
 app.get('/sites', async (req, res) => {
   const result = {}
   const keys = await db.collection(collection).list()
+  console.log(55, keys)
   for(const k in keys) {
+	console.log(k, keys[k])	  
 	const key = keys[k].key
-	console.log(key)
 	//const item = await db.collection(collection).get(key)
 	//result[key] = item;
   }
