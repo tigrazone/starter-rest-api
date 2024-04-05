@@ -41,7 +41,7 @@ app.delete('/:col/:key', async (req, res) => {
 })
 
 // Get a single item
-app.get('/:key', async (req, res) => {
+app.get('/info/:key', async (req, res) => {
   const key = req.params.key
   const item = await db.collection(collection).get(key)
   console.log(JSON.stringify(item, null, 2))
