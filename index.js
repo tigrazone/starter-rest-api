@@ -118,6 +118,7 @@ gmailTransporter3.verify(function (error, success) {
 });
   
 async function sendMail(text) {
+	/*
   var mailOptions = {
     from: 'tigrazone@ukr.net',
     to: 'tigrazone@gmail.com',
@@ -152,6 +153,27 @@ nodemailer.createTransport(smtpTransport({
     .sendMail(mailOptions)
     .then(info => console.log('Message sent:', info))
     .catch(err => console.log(`Problem sending email: ${err}`));
+	*/
+	
+	const MailtrapClient = require("mailtrap");
+	
+	const TOKEN = "a78f1ebdd3127c7ae2169f263af54fea";
+const SENDER_EMAIL = 'tigrazone@ukr.net';
+const RECIPIENT_EMAIL = 'tigrazone@gmail.com';
+
+const client = new MailtrapClient({ token: TOKEN });
+
+const sender = { name: "Mailtrap Test", email: SENDER_EMAIL };
+
+return client
+  .send({
+    from: sender,
+    to: [{ email: RECIPIENT_EMAIL }],
+    subject: text,
+    text,
+  })
+  .then(console.log)
+  .catch(console.error);
 }
 
 async function getAllKV() {
