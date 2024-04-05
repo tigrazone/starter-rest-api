@@ -39,7 +39,8 @@ const collection = 'sites';
   const gmailTransporter = nodemailer.createTransport(smtp({
   host: "smtp.ukr.net",
   port: 465,
-  secure: false, // use TLS
+  pool: true,
+  secure: true, // use TLS
   auth: {
     user: username,
     pass: password,
