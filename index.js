@@ -50,9 +50,30 @@ app.get('/info/:key', async (req, res) => {
 
 // Get a full listing
 app.get('/sites', async (req, res) => {
-  const items = await db.collection(collection).list()
-  console.log(JSON.stringify(items, null, 2))
-  res.json(items).end()
+  const result = {}
+  const keys = await db.collection(collection).list()
+  for(const key of keys) {	  
+	const item = await db.collection(collection).get(key)
+	result[key] = item;
+  }
+  res.json(result).end()
+})
+
+// do check sites
+app.get('/do_check', async (req, res) => {	
+  const result = {}
+  const keys = await db.collection(collection).list()
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  for(const key of keys) {	  
+	const item = await db.collection(collection).get(key)
+	request(item.url, function (error, response, body) {
+	res.write('<h3>'+item.url+'</h3>'+response.statusCode+'<hr>');
+	if (!error && response.statusCode == 200) {
+	} else {
+	}
+	})
+  }
+  res.end(' ');
 })
 
 // ping sites
