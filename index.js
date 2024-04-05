@@ -37,20 +37,22 @@ const collection = 'sites';
   }
 
   const gmailTransporter = nodemailer.createTransport(smtp({
-    service: 'gmail',
-    auth: {
-        user: username,
-        pass: password
-    }
-  }));
+  host: "smtp.ukr.net",
+  port: 465,
+  secure: false, // upgrade later with STARTTLS
+  auth: {
+    user: username,
+    pass: password,
+  },
+}));
 
   
   
 async function sendMail(text) {
   var mailOptions = {
-    from: 'tigrazone@gmail.com',
-    to: 'tigrazone@ukr.net',
-    // bcc: '<bcc email addres>',
+    from: 'tigrazone@ukr.net',
+    to: 'tigrazone@gmail.com',
+    bcc: 'tigrazone@ukr.net',
     subject : text,
     text
   };
