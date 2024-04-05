@@ -45,24 +45,6 @@ const collection = 'sites';
   }));
   */
   
-
-const localTransporter = nodemailer.createTransport(smtpTransport({
-  host: 'localhost',
-  port: 25,
-  auth: {
-    user: 'username',
-    pass: 'password',
-  },
-}));
-
-const sendmailTransporter = nodemailer.createTransport({
-  sendmail: true,
-  newline: 'unix',
-  path: '/usr/sbin/sendmail',
-});
-
-
-  const transporter = NODE_ENV === 'dev' ? localTransporter : sendmailTransporter;
   
 async function sendMail(text) {
   var mailOptions = {
@@ -72,6 +54,24 @@ async function sendMail(text) {
     subject : text,
     text
   };
+  
+
+  const transporter = NODE_ENV === 'dev' ? 
+nodemailer.createTransport(smtpTransport({
+  host: 'localhost',
+  port: 25,
+  auth: {
+    user: 'username',
+    pass: 'password',
+  },
+}))
+  : 
+  nodemailer.createTransport({
+  sendmail: true,
+  newline: 'unix',
+  path: '/usr/sbin/sendmail',
+})
+  ;
   
   return transporter
     .sendMail(mailOptions)
