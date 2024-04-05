@@ -133,8 +133,8 @@ const mg = require('nodemailer-mailgun-transport');
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 const auth = {
   auth: {
-    api_key: '7a7df2d987e67ed060e84ec1143f51f9-4c205c86-e0f39e7c',
-    domain: 'sandbox179e66ac40344a199074801f8d7b6ee9.mailgun.org'
+    api_key: username,
+    domain: password
   }
 }
 
