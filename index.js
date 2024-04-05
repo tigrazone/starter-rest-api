@@ -52,8 +52,8 @@ app.get('/info/:key', async (req, res) => {
 app.get('/sites', async (req, res) => {
   const result = {}
   const keys = await db.collection(collection).list()
-  console.log(keys, typeof(keys))
-  for(const key in keys) {	  
+  for(const k in keys) {
+	const key = keys[k].key
 	const item = await db.collection(collection).get(key)
 	result[key] = item;
   }
@@ -65,7 +65,8 @@ app.get('/do_check', async (req, res) => {
   const result = {}
   const keys = await db.collection(collection).list()
   res.writeHead(200, {'Content-Type': 'text/html'});
-  for(const key in keys) {	  
+  for(const k in keys) {
+	const key = keys[k].key
 	const item = await db.collection(collection).get(key)
 	request(item.url, function (error, response, body) {
 	res.write('<h3>'+item.url+'</h3>'+response.statusCode+'<hr>');
