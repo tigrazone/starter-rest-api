@@ -5,10 +5,10 @@ const app = express();
 
 const fs = require('fs');
 
-/*
 const NODE_ENV = (process.env.NODE_ENV || '').trim()
 console.log(9, NODE_ENV)
 
+/*
 const dotEnvFile = NODE_ENV === 'dev' ? './.env.dev' : (!fs.existsSync('./.env') ? './.env.cyclic' : './.env');
 console.log('USE ', dotEnvFile);
 require('dotenv').config({ path: dotEnvFile });
