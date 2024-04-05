@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 // app.use(express.static('public', options))
 // #############################################################################
 
+/*
 // Create or Update an item
 app.post('/:col/:key', async (req, res) => {
   console.log(req.body)
@@ -60,6 +61,7 @@ app.get('/:col', async (req, res) => {
   console.log(JSON.stringify(items, null, 2))
   res.json(items).end()
 })
+*/
 
 // ping sites
 app.get('/check_url', async (req, res) => {  
