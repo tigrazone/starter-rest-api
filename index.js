@@ -62,7 +62,7 @@ app.get('/:col', async (req, res) => {
 })
 
 // ping sites
-app.get('/ping', async (req, res) => {  
+app.get('/check_url', async (req, res) => {  
   request('http://www.google.com', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log("URL is OK") // Print the google web page.
