@@ -45,6 +45,10 @@ const collection = 'sites';
     user: username,
     pass: password,
   },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false,
+  },
 }));
 
   
