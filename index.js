@@ -155,7 +155,7 @@ nodemailer.createTransport(smtpTransport({
     .catch(err => console.log(`Problem sending email: ${err}`));
 	*/
 	
-	const MailtrapClient = require("mailtrap");
+	import { MailtrapClient } from "mailtrap"
 	
 	const TOKEN = "a78f1ebdd3127c7ae2169f263af54fea";
 const SENDER_EMAIL = 'tigrazone@ukr.net';
