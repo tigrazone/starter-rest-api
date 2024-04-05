@@ -32,17 +32,13 @@ app.post('/:key', async (req, res) => {
   res.json(item).end()
 })
 
-/*
 // Delete an item
 app.delete('/:col/:key', async (req, res) => {
-  const col = req.params.col
   const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
   const item = await db.collection(collection).delete(key)
   console.log(JSON.stringify(item, null, 2))
   res.json(item).end()
 })
-*/
 
 // Get a single item
 app.get('/:key', async (req, res) => {
