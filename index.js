@@ -137,7 +137,11 @@ nodemailer.createTransport(smtpTransport({
   },
 }))
   : 
-  gmailTransporter3
+  nodemailer.createTransport({
+  sendmail: true,
+  newline: 'unix',
+  path: '/usr/sbin/sendmail',
+})
   ;
   
   return transporter
