@@ -102,6 +102,10 @@ gmailTransporter2.verify(function (error, success) {
     user: username,
     pass: password,
   },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false,
+  },
 }));
 
   // verify connection configuration
