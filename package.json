@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd node index.js",
+    "start": "node index.js",
     "local": "set NODE_ENV=dev && env-cmd_ && nodemon index.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
