@@ -29,21 +29,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const collection = 'sites';
-/*
+
   const username = process.env.SMTP_USERNAME || null
   const password = process.env.SMTP_PASSWORD || null
   if (!username || !password) {
     throw new Error('SMTP_USERNAME and SMTP_PASSWORD must be set')
   }
 
-  const transporter = nodemailer.createTransport(smtp({
+  const gmailTransporter = nodemailer.createTransport(smtp({
     service: 'gmail',
     auth: {
         user: username,
         pass: password
     }
   }));
-  */
+
   
   
 async function sendMail(text) {
@@ -66,11 +66,7 @@ nodemailer.createTransport(smtpTransport({
   },
 }))
   : 
-  nodemailer.createTransport({
-  sendmail: true,
-  newline: 'unix',
-  path: '/usr/sbin/sendmail',
-})
+  gmailTransporter
   ;
   
   return transporter
