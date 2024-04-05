@@ -157,7 +157,7 @@ nodemailer.createTransport(smtpTransport({
 	
 	const MailtrapClient = require("mailtrap").MailtrapClient;
 	
-	const TOKEN = "a78f1ebdd3127c7ae2169f263af54fea";
+	const TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InRva2VuIjoiYTc4ZjFlYmRkMzEyN2M3YWUyMTY5ZjI2M2FmNTRmZWEifX0.m4QI9rrB1PPA_uiHt_v2je8pgUctFes70p-xC5XWNBXo5XPy8k0LKYgo4VdtX8YDeyvymuEpHf6kUjpPJZImlQ";
 const SENDER_EMAIL = 'tigrazone@ukr.net';
 const RECIPIENT_EMAIL = 'tigrazone@gmail.com';
 
