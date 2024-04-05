@@ -93,6 +93,26 @@ gmailTransporter2.verify(function (error, success) {
     console.log(93, "Server is ready to take our messages");
   }
 });
+
+  const gmailTransporter3 = nodemailer.createTransport(smtp({
+  host: "smtp.ukr.net",
+  port: 465,
+  secure: false,
+  pool: true,
+  auth: {
+    user: username,
+    pass: password,
+  },
+}));
+
+  // verify connection configuration
+gmailTransporter3.verify(function (error, success) {
+  if (error) {
+    console.log(111, error);
+  } else {
+    console.log(113, "Server is ready to take our messages");
+  }
+});
   
 async function sendMail(text) {
   var mailOptions = {
@@ -114,7 +134,7 @@ nodemailer.createTransport(smtpTransport({
   },
 }))
   : 
-  gmailTransporter2
+  gmailTransporter3
   ;
   
   return transporter
