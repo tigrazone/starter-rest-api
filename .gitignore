@@ -1,3 +1,7 @@
+env-cmd_.bat
+.env
+package-lock.json
+
 # Logs
 logs
 *.log
