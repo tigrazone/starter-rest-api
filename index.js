@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
+const request = require('request');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -58,6 +59,20 @@ app.get('/:col', async (req, res) => {
   const items = await db.collection(col).list()
   console.log(JSON.stringify(items, null, 2))
   res.json(items).end()
+})
+
+// ping sites
+app.get('/ping', async (req, res) => {  
+  request('http://www.google.com', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log("URL is OK") // Print the google web page.
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.end('URL is OK');
+    } else {
+      res.writeHead(500, {'Content-Type': 'text/html'});
+      res.end('URL broke:'+JSON.stringify(response, null, 2));
+    }
+  })
 })
 
 // Catch all handler for all other request.
