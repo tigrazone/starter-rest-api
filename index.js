@@ -48,7 +48,7 @@ const collection = 'sites';
   
 async function sendMail(text) {
   var mailOptions = {
-    from: username,
+    from: 'tigrazone@gmail.com',
     to: 'tigrazone@ukr.net',
     // bcc: '<bcc email addres>',
     subject : text,
