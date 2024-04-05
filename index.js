@@ -97,8 +97,7 @@ gmailTransporter2.verify(function (error, success) {
   const gmailTransporter3 = nodemailer.createTransport(smtp({
   host: "smtp.ukr.net",
   port: 465,
-  secure: false,
-  pool: true,
+  secure: true,
   auth: {
     user: username,
     pass: password,
