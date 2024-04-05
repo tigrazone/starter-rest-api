@@ -47,7 +47,52 @@ const collection = 'sites';
   },
 }));
 
-  
+  // verify connection configuration
+gmailTransporter.verify(function (error, success) {
+  if (error) {
+    console.log(53, error);
+  } else {
+    console.log(55, "Server is ready to take our messages");
+  }
+});
+
+  const gmailTransporter1 = nodemailer.createTransport(smtp({
+  host: "smtp.ukr.net",
+  port: 465,
+  secure: true, // use TLS
+  auth: {
+    user: username,
+    pass: password,
+  },
+}));
+
+  // verify connection configuration
+gmailTransporter1.verify(function (error, success) {
+  if (error) {
+    console.log(72, error);
+  } else {
+    console.log(74, "Server is ready to take our messages");
+  }
+});
+
+  const gmailTransporter2 = nodemailer.createTransport(smtp({
+  host: "smtp.ukr.net",
+  port: 465,
+  secure: false,
+  auth: {
+    user: username,
+    pass: password,
+  },
+}));
+
+  // verify connection configuration
+gmailTransporter2.verify(function (error, success) {
+  if (error) {
+    console.log(91, error);
+  } else {
+    console.log(93, "Server is ready to take our messages");
+  }
+});
   
 async function sendMail(text) {
   var mailOptions = {
