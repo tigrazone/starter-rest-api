@@ -139,7 +139,7 @@ nodemailer.createTransport(smtpTransport({
   : 
   nodemailer.createTransport({
                 port: 465,
-                host: "smtp.gmail.com",
+                host: "smtp.ukr.net",
                 auth: {
                     user: username,
                     pass: password,
