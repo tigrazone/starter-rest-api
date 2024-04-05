@@ -44,6 +44,26 @@ const collection = 'sites';
     }
   }));
   
+  
+
+const localTransporter = nodemailer.createTransport(smtpTransport({
+  host: 'localhost',
+  port: 25,
+  auth: {
+    user: 'username',
+    pass: 'password',
+  },
+}));
+
+const sendmailTransporter = nodemailer.createTransport({
+  sendmail: true,
+  newline: 'unix',
+  path: '/usr/sbin/sendmail',
+});
+
+
+  const transporter = NODE_ENV === 'dev' ? localTransporter : sendmailTransporter;
+  
 async function sendMail(text) {
   var mailOptions = {
     from: username,
@@ -52,9 +72,11 @@ async function sendMail(text) {
     subject : text,
     text
   };
-
-  const sendRes = await transporter.sendMail(mailOptions);
-  console.log(55, 'sendRes', sendRes)
+  
+  return transporter
+    .sendMail(mailOptions)
+    .then(info => console.log('Message sent:', info))
+    .catch(err => console.log(`Problem sending email: ${err}`));
 }
 
 async function getAllKV() {
@@ -146,11 +168,11 @@ app.get('/do_check', async (req, res) => {
     if (statusCode != 200) {
       if (last_status == 200) {
         console.log('send letter about site not working');
-        sendMail(item.url + ' not working')
+        await sendMail(item.url + ' not working')
       }
     } else if (last_status != 200) {
       console.log('send letter about site START working');
-        sendMail(item.url + ' START working')
+        await sendMail(item.url + ' START working')
     }
   }
   res.end(html);
