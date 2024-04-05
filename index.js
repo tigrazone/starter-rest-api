@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const collection = 'sites';
-
+/*
   const username = process.env.SMTP_USERNAME || null
   const password = process.env.SMTP_PASSWORD || null
   if (!username || !password) {
@@ -43,7 +43,7 @@ const collection = 'sites';
         pass: password
     }
   }));
-  
+  */
   
 
 const localTransporter = nodemailer.createTransport(smtpTransport({
