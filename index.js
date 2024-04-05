@@ -138,10 +138,14 @@ nodemailer.createTransport(smtpTransport({
 }))
   : 
   nodemailer.createTransport({
-  sendmail: true,
-  newline: 'unix',
-  path: '/usr/sbin/sendmail',
-})
+                port: 465,
+                host: "smtp.gmail.com",
+                auth: {
+                    user: username,
+                    pass: password,
+                },
+                secure: true,
+            })
   ;
   
   return transporter
