@@ -1,28 +1,35 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable camelcase */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable global-require */
+/* eslint-disable no-nested-ternary */
 const express = require('express');
 const request = require('request');
 
 const app = express();
 
+const NODE_ENV = (process.env.NODE_ENV || '').trim();
+console.log(9, NODE_ENV);
+
 const fs = require('fs');
 
-const NODE_ENV = (process.env.NODE_ENV || '').trim()
-console.log(9, NODE_ENV)
-
-/*
+// eslint-disable-next-line max-len
 const dotEnvFile = NODE_ENV === 'dev' ? './.env.dev' : (!fs.existsSync('./.env') ? './.env.cyclic' : './.env');
 console.log('USE ', dotEnvFile);
+/*
 require('dotenv').config({ path: dotEnvFile });
 */
 
 const nodemailer = require('nodemailer');
-const smtp = require('nodemailer-smtp-transport');
+// const smtp = require('nodemailer-smtp-transport');
 
 let db;
-if(NODE_ENV !== 'dev') {
-	db = require('@cyclic.sh/dynamodb')
+if (NODE_ENV !== 'dev') {
+  db = require('@cyclic.sh/dynamodb');
 } else {
-	const CyclicDb = require('@cyclic.sh/dynamodb');
-	db = CyclicDb('concerned-pear-elkCyclicDB');
+  const CyclicDb = require('@cyclic.sh/dynamodb');
+  db = CyclicDb('concerned-pear-elkCyclicDB');
 }
 
 app.use(express.json());
@@ -30,155 +37,49 @@ app.use(express.urlencoded({ extended: true }));
 
 const collection = 'sites';
 
-  const username = process.env.SMTP_USERNAME || null
-  const password = process.env.SMTP_PASSWORD || null
-  if (!username || !password) {
-    throw new Error('SMTP_USERNAME and SMTP_PASSWORD must be set')
-  }
+const username = process.env.SMTP_USERNAME || null;
+const password = process.env.SMTP_PASSWORD || null;
+if (!username || !password) {
+  throw new Error('SMTP_USERNAME and SMTP_PASSWORD must be set');
+}
 
-  const gmailTransporter = nodemailer.createTransport(smtp({
-  host: "smtp.ukr.net",
-  port: 465,
-  pool: true,
-  secure: true, // use TLS
-  auth: {
-    user: username,
-    pass: password,
-  },
-}));
-
-  // verify connection configuration
-gmailTransporter.verify(function (error, success) {
-  if (error) {
-    console.log(53, error);
-  } else {
-    console.log(55, "Server is ready to take our messages");
-  }
-});
-
-  const gmailTransporter1 = nodemailer.createTransport(smtp({
-  host: "smtp.ukr.net",
-  port: 465,
-  secure: true, // use TLS
-  auth: {
-    user: username,
-    pass: password,
-  },
-}));
-
-  // verify connection configuration
-gmailTransporter1.verify(function (error, success) {
-  if (error) {
-    console.log(72, error);
-  } else {
-    console.log(74, "Server is ready to take our messages");
-  }
-});
-
-  const gmailTransporter2 = nodemailer.createTransport(smtp({
-  host: "smtp.ukr.net",
-  port: 465,
-  secure: false,
-  auth: {
-    user: username,
-    pass: password,
-  },
-}));
-
-  // verify connection configuration
-gmailTransporter2.verify(function (error, success) {
-  if (error) {
-    console.log(91, error);
-  } else {
-    console.log(93, "Server is ready to take our messages");
-  }
-});
-
-  const gmailTransporter3 = nodemailer.createTransport(smtp({
-  host: "smtp.ukr.net",
-  port: 465,
-  secure: true,
-  auth: {
-    user: username,
-    pass: password,
-  },
-  tls: {
-    // do not fail on invalid certs
-    rejectUnauthorized: false,
-  },
-}));
-
-  // verify connection configuration
-gmailTransporter3.verify(function (error, success) {
-  if (error) {
-    console.log(111, error);
-  } else {
-    console.log(113, "Server is ready to take our messages");
-  }
-});
-  
 async function sendMail(text) {
-  var mailOptions = {
+  const mailOptions = {
     from: 'tigrazone@ukr.net',
     to: 'tigrazone@gmail.com',
     bcc: 'tigrazone@ukr.net',
-    subject : text,
-    text
+    subject: text,
+    text,
   };
-  
-  // 7a7df2d987e67ed060e84ec1143f51f9-4c205c86-e0f39e7c
-  
-const mg = require('nodemailer-mailgun-transport');
+/*
+  const mg = require('nodemailer-mailgun-transport');
 
-// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-const auth = {
-  auth: {
-    api_key: username,
-    domain: password
-  }
-}
+  // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+  const auth = {
+    auth: {
+      api_key: username,
+      domain: password,
+    },
+  };
 
-const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+  const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
-  const transporter = NODE_ENV === 'dev' ? 
-nodemailer.createTransport(smtpTransport({
-  host: 'localhost',
-  port: 25,
-  auth: {
-    user: 'username',
-    pass: 'password',
-  },
-}))
-  : 
-  nodemailerMailgun
-  ;
-  
+  const transporter = NODE_ENV === 'dev'
+    ? nodemailer.createTransport(smtpTransport({
+      host: 'localhost',
+      port: 25,
+      auth: {
+        user: 'username',
+        pass: 'password',
+      },
+    }))
+    : nodemailerMailgun;
+
   return transporter
     .sendMail(mailOptions)
     .then(info => console.log('Message sent:', info))
     .catch(err => console.log(`Problem sending email: ${err}`));
-	
-	/*
-	const MailtrapClient = require("mailtrap").MailtrapClient;
-	
-	const TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJkYXRhIjp7InRva2VuIjoiNDAxYTE1Zjc4NDI0YjFhNzk4NWMzYzRjZThhYzliM2QifX0.-DDt7Jv2B85iwSu7wxU_hDBqcgKYI7IXzJ0Q_DudbKtgf2aOTBYAw9KBsfUSP8e9zhsLZaWizMusUyyAxNL7lg";
-const SENDER_EMAIL = 'tigrazone@ukr.net';
-const RECIPIENT_EMAIL = 'tigrazone@gmail.com';
-
-const client = new MailtrapClient({ token: TOKEN });
-
-const sender = { name: "Mailtrap Test", email: SENDER_EMAIL };
-
-return client
-  .send({
-    from: sender,
-    to: [{ email: RECIPIENT_EMAIL }],
-    subject: text,
-    text,
-  })
-  .then(console.log)
-  .catch(console.error);
-  */
+    */
 }
 
 async function getAllKV() {
@@ -197,7 +98,7 @@ async function getAllKV() {
 
 function doRequest(url) {
   return new Promise((resolve, reject) => {
-    request(url, (error, res, body) => {
+    request(url, (error, res) => {
       if (!error && res.statusCode === 200) {
         resolve(res.statusCode);
       } else {
@@ -251,15 +152,15 @@ app.get('/do_check', async (req, res) => {
     console.log(193, item);
     const last_status = +item.last_status;
     let statusCode = 500;
-	  try {
+    try {
       statusCode = +await doRequest(item.url);
       console.log(statusCode);
       html += `<h3>${item.url}</h3>${statusCode}<hr>`;
-	  } catch (error) {
+    } catch (error) {
       console.error(error); // `error` will be whatever you passed to `reject()` at the top
-	  }
+    }
 
-    if (statusCode != last_status) {
+    if (statusCode !== last_status) {
       console.log('status is chenged. store it');
       const updated = await db.collection(collection).set(key, {
         url: item.url,
@@ -267,14 +168,14 @@ app.get('/do_check', async (req, res) => {
       });
       console.log(JSON.stringify(updated, null, 2));
     }
-    if (statusCode != 200) {
-      if (last_status == 200) {
+    if (statusCode !== 200) {
+      if (last_status === 200) {
         console.log('send letter about site not working');
-        await sendMail(item.url + ' not working')
+        await sendMail(`${item.url} not working`);
       }
-    } else if (last_status != 200) {
+    } else if (last_status !== 200) {
       console.log('send letter about site START working');
-        await sendMail(item.url + ' START working')
+      await sendMail(`${item.url} START working`);
     }
   }
   res.end(html);
@@ -282,8 +183,8 @@ app.get('/do_check', async (req, res) => {
 
 // ping sites
 app.get('/check_url', async (req, res) => {
-  request('http://www.google.com', (error, response, body) => {
-    if (!error && response.statusCode == 200) {
+  request('http://www.google.com', (error, response) => {
+    if (!error && response.statusCode === 200) {
       console.log('URL is OK'); // Print the google web page.
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end('URL is OK');

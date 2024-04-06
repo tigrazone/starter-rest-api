@@ -1,0 +1,6 @@
+# ignore
+
+.vscode/**/*
+mochawesome-report/
+public/
+app/utils/packer.js

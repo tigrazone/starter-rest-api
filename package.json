@@ -13,21 +13,21 @@
   "author": "tigrazone <tigrazone@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.40.0",
+    "eslint": "^9.0.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.27.5"
+    "eslint-plugin-import": "^2.29.1"
   },
   "dependencies": {
     "@cyclic.sh/dynamodb": "^0.0.33",
     "dotenv": "^16.4.5",
     "env-cmd": "^10.1.0",
-    "express": "^4.18.1",
+    "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "mailtrap": "^3.3.0",
     "nodemailer": "^6.9.13",
     "nodemailer-mailgun-transport": "^2.1.5",
-    "nodemailer-smtp-transport": "^2.7.4",
+    "nodemailer-smtp-transport": "^2.4.2",
     "request": "^2.88.2"
   }
 }
